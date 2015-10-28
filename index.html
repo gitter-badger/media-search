@@ -50,7 +50,7 @@ $("#search").keyup(function(){
   getVideoList(key);
 });
 function nextPage(keyword,token) {
-  document.getElementById("videoList").innerHTML="Search...";
+  document.getElementById("videoList").innerHTML="Searching...";
     if (window.XMLHttpRequest) {
     // code for IE7+, Firefox, Chrome, Opera, Safari
       xmlhttp1=new XMLHttpRequest();
@@ -68,7 +68,7 @@ function nextPage(keyword,token) {
   }
 
 function getVideoList(keyword) {
-  document.getElementById("videoList").innerHTML="Search...";
+  document.getElementById("videoList").innerHTML="Searching...";
   if (window.XMLHttpRequest) {
     // code for IE7+, Firefox, Chrome, Opera, Safari
     xmlhttp2 = new XMLHttpRequest();
