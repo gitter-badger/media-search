@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Demo Search Youtube API V3</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <style>
+	.item-search{
+	  min-height:80px;
+	  margin: 2px 0;
+	  padding: 4px 0 0 0;
+	}
+	.item-search:hover{
+	  border:1px #ccc dashed;
+	}
+	</style>
+</head>
+<body>
+<div id="page-content">
+    <div id="wrap">
+        <div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>Demo Search Youtube API V3</h1>
+					<form role="form" class="form-horizontal" role="form" method="post" onSubmit="getVideoList(keyword.value); return false;">  
+						<div class="form-group">
+						  <div class="col-md-12">
+							<div class="input-group">
+							  <input type="text" name="search" id="search" placeholder="Enter keyword" class="form-control" autofocus>
+							  <div class="input-group-btn">
+								<button type="submit" class="btn btn-info" onClick="getVideoList(search.value)">Search</button>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					</form>
+					<div id="videoList" class="row">
+					</div>
+				</div>
+	</div>
+<script type="text/javascript">
+$("#search").keyup(function(){
+  key = $("#search").val();
+  getVideoList(key);
+});
+function nextPage(keyword,token) {
+  document.getElementById("videoList").innerHTML="Search...";
+    if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp1=new XMLHttpRequest();
+    } else { // code for IE6, IE5
+      xmlhttp1=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp1.onreadystatechange=function() {
+      if (xmlhttp1.readyState==4 && xmlhttp1.status==200) {
+        document.getElementById("videoList").innerHTML=xmlhttp1.responseText;
+      }
+    }
+    keyword = keyword.replace(/ /g, '%2B');
+    xmlhttp1.open("GET","search.php?keyword="+keyword+"&nextPage="+token,true);
+    xmlhttp1.send();
+  }
+
+function getVideoList(keyword) {
+  document.getElementById("videoList").innerHTML="Search...";
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp2 = new XMLHttpRequest();
+  } else { // code for IE6, IE5
+    xmlhttp2 = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp2.onreadystatechange=function() {
+    if (xmlhttp2.readyState==4 && xmlhttp2.status==200) {
+      document.getElementById("videoList").innerHTML = xmlhttp2.responseText;
+    }
+  }
+  
+  if(keyword.length > 0){
+    keyword = keyword.replace(/ /g, '%2B');
+    xmlhttp2.open("GET","search.php?keyword="+keyword,true);
+  }else{
+    xmlhttp2.open("GET","search.php",true);
+  }
+  xmlhttp2.send();
+}
+</script>
+</body>
+</html>
